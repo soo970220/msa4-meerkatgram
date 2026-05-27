@@ -1,5 +1,6 @@
 package com.msa4meerkatgram.global.errors;
 
+import com.msa4meerkatgram.global.errors.custom.NotRegisteredException;
 import com.msa4meerkatgram.global.responses.GlobalRes;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -16,14 +17,25 @@ import java.util.Objects;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+    @ExceptionHandler(NotRegisteredException.class)
+    public ResponseEntity<GlobalRes<String>> notRegisteredException(NotRegisteredException e) {
+        return ResponseEntity.status(400).body(
+            GlobalRes.<String>builder()
+                .code("E01")
+                .message("로그인에러.")
+                .data(e.getMessage())
+                .build()
+        );
+    }
+
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<GlobalRes<String>> methodArgumentTypeMismatchHandle(MethodArgumentTypeMismatchException e) {
         return ResponseEntity.status(400).body(
-                GlobalRes.<String>builder()
-                        .code("E21")
-                        .message("요청 파라미터에 이상이 있습니다.")
-                        .data(String.format("%s : 필드를 확인해 주세요.", e.getName()))
-                        .build()
+            GlobalRes.<String>builder()
+                .code("E21")
+                .message("요청 파라미터에 이상이 있습니다.")
+                .data(String.format("%s : 필드를 확인해 주세요.", e.getName()))
+                .build()
         );
     }
 
