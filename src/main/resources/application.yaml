@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: msa4-meerkatgram
+  web:
+    error:
+      include-stacktrace: always
+  # MySQL
+  datasource:
+    url: jdbc:mysql://localhost:3306/meerkatgram
+    username: root
+    password: msa505
+    driver-class-name: com.mysql.cj.jdbc.Driver
+# Mybatis
+mybatis:
+  mapper-locations: classpath:mapper/**/*Mapper.xml
+  type-aliases-package: com.msa4meerkatgram
+
+logging:
+  file:
+    # 로그 파일 경로
+    name: logs/error.log
+  level:
+    # 로그 출력 레벨 설정 (trace, debug, info, warn, error)
+    root: info
+    # 특정 패키지만 로그 출력 레밸 설정
+    com.msa4meerkatgram.controllers: debug
+
+# Security & JWT
+security:
+  jwt:
+    secure: false
+    issuer: meerkat@meerkat.kr
+    type: JWT
+    access-token-expiry: 1000000
+    refresh-token-expiry: 1296000000
+    refresh-token-cookie-name: refresh-token
+    refresh-token-cookie-expiry: 1296000
+    secret: w4e5gwe57nhwb456g3h46g34of6h9439f5h8o7os5789hflsg645eh74s57he54g734
+    header-key: Authorization
+    scheme: Bearer
+    reiss-uri: /api/reissue-token
+
+# config
+file:
+    server-uri: http://localhost:8080
+    storage-path: D:/workspace/msa4-meerkatgram/storage
+    profile-path: /images/profiles
+    post-path: /images/posts

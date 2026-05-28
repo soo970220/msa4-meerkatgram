@@ -14,16 +14,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class UserController {
     private final UserService userService;
-
-    @GetMapping("/test")
-    public ResponseEntity<GlobalRes<AuthRes>> test(){
-        // AuthRes result = userService.test();
-        return ResponseEntity.status(200).body(
-                GlobalRes.<AuthRes>builder()
-                        .code("00")
-                        .message("정상처리")
-                        .data(userService.test())
-                        .build()
-        );
-    }
 }

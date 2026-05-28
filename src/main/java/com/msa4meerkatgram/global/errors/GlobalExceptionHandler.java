@@ -42,19 +42,19 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<GlobalRes<List<String>>> MethodArgumentNotValidHandle(MethodArgumentNotValidException e) {
         return ResponseEntity.status(400).body(
-                GlobalRes.<List<String>>builder()
-                        .code("E21")
-                        .message("요청 파라미터에 이상이 있습니다.")
-                        .data(
-                                e.getBindingResult()
-                                        .getAllErrors()
-                                        .stream()
-                                        .map(item -> String.format("%s: 잘못된 값입니다.", item.getObjectName()))
-                                        .toList()
+            GlobalRes.<List<String>>builder()
+            .code("E21")
+            .message("요청 파라미터에 이상이 있습니다.")
+            .data(
+                e.getBindingResult()
+                    .getAllErrors()
+                    .stream()
+                    .map(item -> String.format("%s: 잘못된 값입니다.", item.getObjectName()))
+                    .toList()
 
 
-                        )
-                        .build()
+            )
+            .build()
         );
 
     }
