@@ -17,6 +17,14 @@ public class CookieManager {
 
     // Request Header에서 특정 쿠키를 획득(Optional 반환)
     // 쿠키가 없을수도 있으니까 Optional로 감싸고 Stream으로 안전하게 찾는코드
+
+    /**
+     *Requst Header에서 특정 쿠키를 획득(Optional 반환)
+     * @param request 리퀘스트
+     * @param name 찾고자하는 쿠키명
+     * @return Optional<Cookie>
+     * @throws Exception
+     */
     public Optional<Cookie> getCookie(HttpServletRequest request, String name) {
         // 쿠키존재여부확인
         if(request.getCookies() == null) {
