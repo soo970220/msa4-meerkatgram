@@ -46,3 +46,7 @@ file:
     storage-path: D:/workspace/msa4-meerkatgram/storage
     profile-path: /images/profiles
     post-path: /images/posts
+
+cors:
+  allowed-origins: ["http://localhost:5173"]
+  max-age: 3600
