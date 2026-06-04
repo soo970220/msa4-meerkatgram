@@ -4,7 +4,13 @@ spring:
   web:
     error:
       include-stacktrace: always
-  # MySQL
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 20MB
+
+  # MySQL(DB)
   datasource:
     url: jdbc:mysql://localhost:3306/meerkatgram
     username: root
@@ -43,9 +49,18 @@ security:
 # config
 file:
     server-uri: http://localhost:8080
-    storage-path: D:/workspace/msa4-meerkatgram/storage
-    profile-path: /images/profiles
-    post-path: /images/posts
+    storage-path: E:/sulin/workspace/msa4-meerkatgram/storage
+    profile-path: /files/profiles
+    post-path: /files/posts
+    allow-extension-list: [
+    "image/jpg",
+    "image/jpeg",
+    "image/png",
+    "image/gif",
+    "image/svg",
+    "image/webp"
+    ]
+
 
 cors:
   allowed-origins: ["http://localhost:5173"]

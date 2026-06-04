@@ -1,12 +1,12 @@
 package com.msa4meerkatgram.global.errors;
 
-import com.msa4meerkatgram.global.errors.custom.InvalidTokenException;
-import com.msa4meerkatgram.global.errors.custom.NotRegisteredException;
+import com.msa4meerkatgram.global.errors.custom.*;
 import com.msa4meerkatgram.global.responses.GlobalRes;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -14,6 +14,8 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -51,15 +53,34 @@ public class GlobalExceptionHandler {
         );
     }
 
-
-
-
     @ExceptionHandler(InvalidTokenException.class)
     public ResponseEntity<GlobalRes<String>> invalidTokenHandle(InvalidTokenException e) {
         return ResponseEntity.status(401).body(
             GlobalRes.<String>builder()
                 .code("E04")
                 .message("토큰이상")
+                .data(e.getMessage())
+                .build()
+        );
+    }
+
+    @ExceptionHandler(DeletedRecordException.class)
+    public ResponseEntity<GlobalRes<String>> deletedRecordHandle(DeletedRecordException e) {
+        return ResponseEntity.status(404).body(
+            GlobalRes.<String>builder()
+                .code("E10")
+                .message("DELETED_RECORD_ERROR")
+                .data(e.getMessage())
+                .build()
+        );
+    }
+
+    @ExceptionHandler(DuplicatedRecordException.class)
+    public ResponseEntity<GlobalRes<String>> duplicatedRecordException(DuplicatedRecordException e) {
+        return ResponseEntity.status(409).body(
+            GlobalRes.<String>builder()
+                .code("E11")
+                .message("DUPLICATED_RECORD_ERROR")
                 .data(e.getMessage())
                 .build()
         );
@@ -74,23 +95,36 @@ public class GlobalExceptionHandler {
                 .build()
         );
     }
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<GlobalRes<List<String>>> MethodArgumentNotValidHandle(MethodArgumentNotValidException e) {
-        return ResponseEntity.status(400).body(
-            GlobalRes.<List<String>>builder()
-            .code("E21")
-            .message("요청 파라미터에 이상이 있습니다.")
-            .data(
-                e.getBindingResult()
-                    .getAllErrors()
-                    .stream()
-                    .map(item -> String.format("%s: 잘못된 값입니다.", item.getObjectName()))
-                    .toList()
-            )
-            .build()
-        );
+    public ResponseEntity<GlobalRes<Map<String, String>>> methodArgumentNotValidHandle(MethodArgumentNotValidException e) {
+        Map<String, String> errors = e.getBindingResult()
+            .getFieldErrors()
+            .stream()
+            .collect(Collectors.toMap(
+                FieldError::getField, // 필드명
+                fieldError -> fieldError.getDefaultMessage() != null ? fieldError.getDefaultMessage() : "유효하지 않은 값입니다.",
+                (existing, replacement) -> existing // 중복 필드가 있을 경우 기존 값 유지
+            ));
 
+        return ResponseEntity.status(400).body(
+            GlobalRes.<Map<String, String>>builder()
+                .code("E21")
+                .message("요청 파라미터에 이상이 있습니다.")
+                .data(errors)
+                .build()
+        );
+    }
+
+    @ExceptionHandler(FileManagedException.class)
+    public ResponseEntity<GlobalRes<String>> fileManagedExceptionHandle(FileManagedException e) {
+        log.error("파일 업로드 에러: {}\n{}", e.getMessage(), Arrays.toString(e.getStackTrace()));
+        return ResponseEntity.status(500).body(
+            GlobalRes.<String>builder()
+                .code("E04")
+                .message("파일업로드실패")
+                .data(e.getMessage())
+                .build()
+        );
     }
 
     @ExceptionHandler(Exception.class)
