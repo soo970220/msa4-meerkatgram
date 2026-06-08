@@ -7,4 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface AuthMapper {
     int updateRefreshToken(long id, String refreshToken);
     int create(User user);
+
+
 }
