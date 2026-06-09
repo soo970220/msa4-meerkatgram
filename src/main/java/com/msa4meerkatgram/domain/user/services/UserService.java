@@ -13,6 +13,4 @@ public class UserService {
     private final UserMapper userMapper;
     private final JwtProvider jwtProvider;
 
-
-
 }

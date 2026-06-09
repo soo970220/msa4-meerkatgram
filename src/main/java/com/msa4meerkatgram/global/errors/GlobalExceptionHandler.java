@@ -67,6 +67,18 @@ public class GlobalExceptionHandler {
             .build()
     );
   }
+  @ExceptionHandler(UserNotFoundException.class)
+  public ResponseEntity<GlobalRes<String>> userNotFoundHandle(UserNotFoundException e) {
+    return ResponseEntity.status(404).body(
+        GlobalRes.<String>builder()
+            .code("E06")
+            .message("존재하지 않는 사용자입니다")
+            .data(e.getMessage())
+            .build()
+    );
+  }
+
+
 
   @ExceptionHandler(DeletedRecordException.class)
   public ResponseEntity<GlobalRes<String>> deletedRecordHandle(DeletedRecordException e) {
@@ -162,5 +174,6 @@ public class GlobalExceptionHandler {
             .build()
     );
   }
+
 }
 
