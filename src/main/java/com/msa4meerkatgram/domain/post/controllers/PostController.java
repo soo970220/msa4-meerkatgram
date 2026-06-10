@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RequiredArgsConstructor
 @RestController
@@ -48,16 +49,19 @@ public class PostController {
     );
   }
 
-  @PostMapping("/posts")
+  @PostMapping("/post/create")
   public ResponseEntity<GlobalRes<Post>> create(
       @AuthenticationPrincipal Claims claims,
-      @Valid @RequestBody PostCreateReq postCreateReq
-  ) {
+      @RequestBody PostCreateReq postCreateReq)
+  { long userId = Long.parseLong(claims.getSubject());
+
+        Post post = postService.create(userId, postCreateReq);
+
     return ResponseEntity.status(200).body(
         GlobalRes.<Post>builder()
             .code("00")
             .message("완료")
-            .data(postService.create(Long.parseLong(claims.getSubject()), postCreateReq))
+            .data(post)
             .build()
 
     );

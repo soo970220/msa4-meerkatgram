@@ -52,8 +52,7 @@
     </select>
     
     <insert
-        id="create"
-        parameterType="com.msa4meerkatgram.domain.post.entities.Post" useGeneratedKeys="true" keyProperty="id">
+        id="create" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO posts (user_id, content, image)
         VALUES (#{userId},#{content},#{image})
 

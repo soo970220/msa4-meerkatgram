@@ -13,8 +13,14 @@ import com.msa4meerkatgram.global.errors.custom.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -50,11 +56,7 @@ public class PostService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public Post create(long userId, PostCreateReq postCreateReq) {
-        User user = userMapper.findByPk(userId);
-        if(user == null) {
-            throw new UserNotFoundException("ㅇㅇ");
-        }
+    public Post create(long userId, PostCreateReq  postCreateReq) {
         Post post = Post.builder()
             .userId(userId)
             .content(postCreateReq.content())
