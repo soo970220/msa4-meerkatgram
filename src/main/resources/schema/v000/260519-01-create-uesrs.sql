@@ -3,7 +3,7 @@ CREATE TABLE `users`
      id            BIGINT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT
     ,email         VARCHAR(100) NOT NULL UNIQUE KEY
     ,password      VARCHAR(255) NOT NULL
-    ,nick          VARCHAR(20)  NOT NULL
+    ,nickname      VARCHAR(20)  NOT NULL
     ,provider      VARCHAR(10)  NOT NULL DEFAULT 'NONE'
     ,role          VARCHAR(10)  NOT NULL DEFAULT 'NORMAL'
     ,profile       VARCHAR(100) NOT NULL
