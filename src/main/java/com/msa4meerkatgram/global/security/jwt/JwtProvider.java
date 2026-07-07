@@ -38,14 +38,14 @@ public class JwtProvider {
         Date now = new Date();
 
         return Jwts.builder()
-            .header() // 헤더 세팅
-            .type(jwtConfig.type())// 토큰 유형 설정
+            .header() // 헤더 셋팅하겠다.
+            .type(jwtConfig.type()) // 토큰 유형 설정
             .and() // 추가 연결
-            .subject(String.valueOf(user.getId())) // subject: 유저를 특정하는 id세팅에 주로사용
-            .issuer(jwtConfig.issuer()) // 토근 발급자
-            .issuedAt(now) // 토큰 발급시간
-            .expiration(new Date(now.getTime() + ttl)) // 만료시간
-            .claim("role", user.getRole())  // private claim 설정
+            .subject(String.valueOf(user.getId())) // subject: 유저를 특정하는 id셋팅에 주로 사용
+            .issuer(jwtConfig.issuer()) // 토큰 발급자
+            .issuedAt(now) // 토큰 발급 시간
+            .expiration(new Date(now.getTime() + ttl)) // 토큰 만료 시간
+            .claim("role", user.getRole()) // private claim 설정
             .signWith(secretKey) // 시그니처 작성
             .compact();
     }
@@ -53,7 +53,7 @@ public class JwtProvider {
     // 쿠키에서 리프레시 토큰 추출
     public Optional<String> extractRefreshToken(HttpServletRequest request) {
         return cookieManager.getCookie(request, jwtConfig.refreshTokenCookieName())
-                .map(Cookie::getValue);
+            .map(Cookie::getValue);
     }
 
     /**
@@ -61,32 +61,35 @@ public class JwtProvider {
      * @param request 리퀘스트
      * @return Optional 엑세스 토큰
      */
-    public Optional<String> extractAccessToken(HttpServletRequest request){
+    public Optional<String> extractAccessToken(HttpServletRequest request) {
         String bearerToken = request.getHeader(jwtConfig.headerKey());
-        if(bearerToken == null || !bearerToken.startsWith(jwtConfig.scheme())){
+
+        if(bearerToken == null || !bearerToken.startsWith(jwtConfig.scheme())) {
             return Optional.empty();
         }
+
         return Optional.of(bearerToken.substring(jwtConfig.scheme().length()).trim());
     }
 
     // 토큰 검증 및 클레임 추출
     public Claims extractClaims(String token) {
-        try{
-            return  Jwts.parser()
-                    .verifyWith(this.secretKey)
-                    .build()
-                    .parseSignedClaims(token)
-                    .getPayload();
-
-    } catch (ExpiredJwtException e){
-            throw new InvalidTokenException("토큰이 만료됬습니다.");
+        try {
+            return Jwts.parser()
+                .verifyWith(this.secretKey)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+        } catch (ExpiredJwtException e) {
+            throw new InvalidTokenException("토큰이 만료됐습니다.");
         } catch (UnsupportedJwtException e) {
-            throw new InvalidTokenException("서명이 위조된 토큰입니다");
-        } catch(MalformedJwtException e) {
-            throw new InvalidTokenException("토큰형식이 올바르지 않습니다.");
+            throw new InvalidTokenException("서명이 위조된 토큰입니다.");
+        } catch (MalformedJwtException e) {
+            throw new InvalidTokenException("토큰 형식이 올바르지 않습니다.");
         } catch (JwtException | IllegalArgumentException e) {
             throw new InvalidTokenException("토큰 검증에 실패했습니다.");
         }
     }
-}
 
+
+
+}

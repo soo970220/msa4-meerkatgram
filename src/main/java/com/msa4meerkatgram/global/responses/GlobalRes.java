@@ -1,6 +1,5 @@
 package com.msa4meerkatgram.global.responses;
 
-
 import lombok.Builder;
 import lombok.Getter;
 
