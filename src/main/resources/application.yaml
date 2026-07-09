@@ -58,11 +58,20 @@ server:
   error:
     include-stacktrace: always
     include-message: always
-
-# MyBatis
-mybatis:
-  mapper-locations: classpath:mapper/**/*Mapper.xml
-  type-aliases-package: com.msa4meerkatgram
+#springdoc OPENAPI
+springdoc:
+  # 클라이언트가 서버로 데이터를 보낼 때의 기본 형식을 지정하는 속성
+  default-consumes-media-type: application/json
+  # 서버가 클라이언트로 데이터를 보낼 때의 기본 형식을 지정하는 속성
+  default-produces-media-type: application/json
+  # Swagger UI 접속 경로 설정
+  swagger-ui:
+    path: /swagger-ui.html
+    # API 정렬 기준 alpha : 알파벳순서
+    operations-sorter: alpha
+  api-docs:
+    # OpenAPI 스펙을 JSON 파일로 확인할수있는 경로
+    path: /api-docs
 
 # Log
 logging:
@@ -75,6 +84,7 @@ logging:
 
     # 특정 패키지만 로그 출력 레벨 설정
     com.msa4spring.controllers: debug
+    com.msa4meerkatgram.global.errors: debug
 
 # Security & JWT
 security:
