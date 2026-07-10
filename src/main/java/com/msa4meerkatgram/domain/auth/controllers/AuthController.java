@@ -39,13 +39,7 @@
          @Valid @RequestBody LoginReq loginReq
          , HttpServletResponse response
      ) {
-         return ResponseEntity.status(200).body(
-             GlobalRes.<AuthRes>builder()
-                 .code("00")
-                 .message("로그인 완료")
-                 .data(authService.login(response, loginReq))
-                 .build()
-         );
+         return ResponseEntity.ok(GlobalRes.success(authService.login(response, loginReq)));
      }
 
      @PostMapping("/reissue-token")
@@ -53,41 +47,25 @@
          HttpServletRequest request
          ,HttpServletResponse response
      ) {
-         return ResponseEntity.status(200).body(
-             GlobalRes.<AuthRes>builder()
-                 .code("00")
-                 .message("토큰 재발급 완료")
-                 .data(authService.reissue(request, response))
-                 .build()
-         );
+         return ResponseEntity.ok(GlobalRes.success(authService.reissue( request,response)));
      }
 
      @PostMapping("/logout")
-     public ResponseEntity<GlobalRes<String>> logout(
+     public ResponseEntity<GlobalRes<Void>> logout(
              HttpServletResponse response
          , @AuthenticationPrincipal Claims claims
      ) {
          authService.logout(response, Long.parseLong(claims.getSubject()));
 
-         return ResponseEntity.status(200).body(
-             GlobalRes.<String>builder()
-                 .code("00")
-                 .message("로그아웃 완료")
-                 .build()
-         );
+         return ResponseEntity.ok(GlobalRes.success());
      }
 
      @PostMapping("/registration")
-     public ResponseEntity<GlobalRes<String>> registration(
+     public ResponseEntity<GlobalRes<Void>> registration(
          @Valid @RequestBody RegistrationReq registrationReq
          ) {
          authService.registration(registrationReq);
 
-         return ResponseEntity.status(200).body(
-             GlobalRes.<String>builder()
-                 .code("00")
-                 .message("회원가입 완료")
-                 .build()
-         );
+         return ResponseEntity.ok(GlobalRes.success());
      }
  }

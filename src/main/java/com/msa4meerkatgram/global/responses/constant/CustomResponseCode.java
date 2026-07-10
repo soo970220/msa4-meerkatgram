@@ -1,19 +1,20 @@
-package com.msa4meerkatgram.global.errors.constant;
+package com.msa4meerkatgram.global.responses.constant;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 @Getter
-public enum CustomErrorCode {
-    NOT_REGISTERED_ERROR(HttpStatus.UNAUTHORIZED, "E01")
+public enum CustomResponseCode {
+    SUCCESS(HttpStatus.OK, "00")
+    ,NOT_REGISTERED_ERROR(HttpStatus.UNAUTHORIZED, "E01") // 없는 데이터(유저 id 없을때)
     ,UNAUTHENTICATED_ERROR(HttpStatus.UNAUTHORIZED, "E02")
     ,UNAUTHORIZED_ERROR(HttpStatus.FORBIDDEN, "E03")
 
-    ,INVALID_TOKEN_ERROR(HttpStatus.UNAUTHORIZED, "E04")
+    ,INVALID_TOKEN_ERROR(HttpStatus.UNAUTHORIZED, "E04") // 토큰만료
     ,NOT_FOUND_DATA_ERROR(HttpStatus.NOT_FOUND, "E10")
     ,DUPLICATED_DATA_ERROR(HttpStatus.CONFLICT, "E20")
 
-    ,INVALID_PARAMETER_ERROR(HttpStatus.BAD_REQUEST, "E21")
+    ,INVALID_PARAMETER_ERROR(HttpStatus.BAD_REQUEST, "E21")// 유효성검사 실패
     ,FILE_MANAGED_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "E40")
     ,DB_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "E80")
     ,SYSTEM_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "E99")
@@ -22,7 +23,7 @@ public enum CustomErrorCode {
     private final HttpStatus httpStatus;
     private final String code;
 
-    CustomErrorCode(HttpStatus httpStatus, String code) {
+    CustomResponseCode(HttpStatus httpStatus, String code) {
         this.httpStatus = httpStatus;
         this.code = code;
     }

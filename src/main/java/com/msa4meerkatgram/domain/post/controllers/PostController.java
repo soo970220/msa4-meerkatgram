@@ -25,17 +25,9 @@ public class PostController {
     private final PostService postService;
     @ApiResponse(responseCode = "200", description = "게시물 목록 획득 성공")
     @ApiNotValidErrorResponse
-     @GetMapping("/posts")
-     public ResponseEntity<GlobalRes<PostIndexRes>> index(PostIndexReq postIndexReq) {
-         PostIndexRes postIndexRes = postService.index(postIndexReq);
-
-         return ResponseEntity.status(200).body(
-             GlobalRes.<PostIndexRes>builder()
-                     .code("00")
-                     .message("정상처리")
-                     .data(postIndexRes)
-                     .build()
-         );
+    @GetMapping("/posts")
+    public ResponseEntity<GlobalRes<PostIndexRes>> index(PostIndexReq postIndexReq) {
+      return ResponseEntity.ok(GlobalRes.success(postService.index(postIndexReq)));
      }
 
 
@@ -43,14 +35,6 @@ public class PostController {
     public ResponseEntity<GlobalRes<PostWithUserRes>> show(
        @Parameter(description = "게시글 번호", example = "1") @Min(value = 1, message = "1이상 숫자만 허용합니다.") @PathVariable long id
     ) {
-        PostWithUserRes result = postService.show(id);
-
-        return ResponseEntity.status(200).body(
-            GlobalRes.<PostWithUserRes>builder()
-                .code("00")
-                .message("게시글 상세 정상 처리")
-                .data(result)
-                .build()
-        );
+       return ResponseEntity.ok(GlobalRes.success(postService.show(id)));
     }
 }
