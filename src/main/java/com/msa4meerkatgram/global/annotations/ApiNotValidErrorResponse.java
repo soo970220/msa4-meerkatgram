@@ -1,4 +1,4 @@
-package com.msa4meerkatgram.global.annotations.openapi;
+package com.msa4meerkatgram.global.annotations;
 
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;

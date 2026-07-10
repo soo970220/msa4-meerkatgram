@@ -19,13 +19,7 @@ public record GlobalRes<T> (
     }
     // 성공 응답을 간편하게 생성하는 메서드(SUCCESS를 직접 적지 않아도 되도록 만든 편의 메서드)
     // SUCCESS 코드와 함께 데이터를 반환한다.
-    /**
-     * Data를 가지느 ㄴ성공 GlobalRes 인스턴스 반환
-     *
-     *
-     * */
-
-    public static<T> GlobalRes<T>success(T data){
+     public static<T> GlobalRes<T>success(T data){
         return GlobalRes.<T>from(CustomResponseCode.SUCCESS,data);
     }
     // 데이터 없이 성공만 반환하는 메서드
