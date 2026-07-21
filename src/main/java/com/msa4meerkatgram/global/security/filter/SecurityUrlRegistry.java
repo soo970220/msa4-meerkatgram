@@ -7,7 +7,7 @@ public final class SecurityUrlRegistry {
     // 블랙리스트 (인증인 반드시 필요)
     // ---------------------------
     public static final String[] AUTH_REQUIRED_GET_URLS = {
-        // "/api/posts/{id}"
+         "/api/posts/{id}"
     };
     public static final String[] AUTH_REQUIRED_POST_URLS = {
         "/api/logout"

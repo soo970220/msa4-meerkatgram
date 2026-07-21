@@ -30,7 +30,7 @@ spring:
       #    - `create`: 애플리케이션 실행 시 테이블 생성 (기존 데이터 삭제됨)
       #    - `create-drop`: 애플리케이션 종료 시 테이블 삭제
       #    - `validate`: 기존 테이블의 구조를 검증하고, 일치하지 않으면 예외 발생
-      ddl-auto: create-drop
+      ddl-auto: none
     # 실행되는 SQL을 콘솔에 출력 여부
     show-sql: true
     properties:
@@ -58,11 +58,20 @@ server:
   error:
     include-stacktrace: always
     include-message: always
-
-# MyBatis
-mybatis:
-  mapper-locations: classpath:mapper/**/*Mapper.xml
-  type-aliases-package: com.msa4meerkatgram
+#springdoc OPENAPI
+springdoc:
+  # 클라이언트가 서버로 데이터를 보낼 때의 기본 형식을 지정하는 속성
+  default-consumes-media-type: application/json
+  # 서버가 클라이언트로 데이터를 보낼 때의 기본 형식을 지정하는 속성
+  default-produces-media-type: application/json
+  # Swagger UI 접속 경로 설정
+  swagger-ui:
+    path: /swagger-ui.html
+    # API 정렬 기준 alpha : 알파벳순서
+    operations-sorter: alpha
+  api-docs:
+    # OpenAPI 스펙을 JSON 파일로 확인할수있는 경로
+    path: /api-docs
 
 # Log
 logging:
@@ -75,6 +84,7 @@ logging:
 
     # 특정 패키지만 로그 출력 레벨 설정
     com.msa4spring.controllers: debug
+    com.msa4meerkatgram.global.errors: debug
 
 # Security & JWT
 security:
