@@ -9,7 +9,7 @@ public record PostWithUserRes(
     Long id
     , String content
     , String image
-    , LocalDateTime createAt
+    , LocalDateTime createdAt
     , LocalDateTime updatedAt
     , LocalDateTime deletedAt
     , UserRes user

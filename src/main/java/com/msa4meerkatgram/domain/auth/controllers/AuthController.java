@@ -22,7 +22,7 @@
  import org.springframework.web.bind.annotation.RestController;
 
  // @Tag : API들을 기능별 또는 도메인별로 그룹화 할 때 사용
- @Tag(name = "인증 APT",description = "인증 및 인가 담당")
+ @Tag(name = "인증 API",description = "인증 및 인가 담당")
  @RestController
  @RequiredArgsConstructor
  @RequestMapping("/api")
