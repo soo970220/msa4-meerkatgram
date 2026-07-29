@@ -1,5 +1,5 @@
-posts
-USE meerkatgrammeerkatgramusers;
+-- posts
+USE meerkatgram;
 
 CREATE TABLE users
 

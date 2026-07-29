@@ -1,12 +1,12 @@
 package com.msa4meerkatgram.domain.auth.services;
 
-import com.msa4meerkatgram.domain.auth.mapper.AuthMapper;
+import com.msa4meerkatgram.domain.auth.mappers.AuthMapper;
 import com.msa4meerkatgram.domain.auth.requests.LoginReq;
 import com.msa4meerkatgram.domain.auth.requests.RegistrationReq;
 import com.msa4meerkatgram.domain.auth.responses.AuthRes;
-import com.msa4meerkatgram.domain.post.mapper.PostMapper;
+import com.msa4meerkatgram.domain.post.mappers.PostMapper;
 import com.msa4meerkatgram.domain.user.entities.User;
-import com.msa4meerkatgram.domain.user.mapper.UserMapper;
+import com.msa4meerkatgram.domain.user.mappers.UserMapper;
 import com.msa4meerkatgram.domain.user.responses.UserRes;
 import com.msa4meerkatgram.global.errors.custom.DeletedRecordException;
 import com.msa4meerkatgram.global.errors.custom.DuplicatedRecordException;
@@ -82,8 +82,8 @@ public class AuthService {
     }
 
     /**
-     *  엑세스토큰 및 리프래시토큰 생성 후, 리프래시 토큰 DB&Cookie에 지정 AuthRes로 반환
-     * @param response HttpServetResponse
+     *  액세스토큰 및 리프레시토큰 생성 후, 리프레시 토큰 DB&Cookie에 지정 AuthRes로 반환
+     * @param response HttpServletResponse
      * @param user  유저 Entity
      * @return AuthRes
      */
@@ -97,7 +97,7 @@ public class AuthService {
         String newAccessToken = jwtProvider.generateAccessToken(user);
         String newRefreshToken = jwtProvider.generateRefreshToken(user);
 
-        // 리프래시 토큰을 DB 저장
+        // 리프레시 토큰을 DB 저장
         authMapper.updateRefreshToken(user.getId(), newRefreshToken);
 
         // 리프레시 토큰을 Cookie에 저장
@@ -105,7 +105,7 @@ public class AuthService {
             , jwtConfig.refreshTokenCookieName()
             ,newRefreshToken
             ,jwtConfig.refreshTokenCookieExpiry()
-            ,jwtConfig.reissUri()
+            ,jwtConfig.reissueUri()
         );
         // 리턴
         return AuthRes.builder()
@@ -132,16 +132,16 @@ public class AuthService {
             throw new InvalidTokenException("유효하지 않은 회원의 토큰입니다.");
         }
 
-        // DB에 저장한 리프래시 토큰 파기
+        // DB에 저장한 리프레시 토큰 파기
         authMapper.updateRefreshToken(id, null);
 
-        // Cookie에 저장한 리프래시 토큰 파기
+        // Cookie에 저장한 리프레시 토큰 파기
         cookieManager.setCookie(
             response
             , jwtConfig.refreshTokenCookieName()
             , null
             , 0
-            , jwtConfig.reissUri()
+            , jwtConfig.reissueUri()
         );
     }
     @Transactional(rollbackFor = Exception.class)

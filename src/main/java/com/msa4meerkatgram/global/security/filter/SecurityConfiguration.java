@@ -1,6 +1,6 @@
 package com.msa4meerkatgram.global.security.filter;
 
-import com.msa4meerkatgram.global.comfig.CorsConfig;
+import com.msa4meerkatgram.global.config.CorsConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

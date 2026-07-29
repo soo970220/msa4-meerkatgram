@@ -1,4 +1,4 @@
-package com.msa4meerkatgram.domain.user.mapper;
+package com.msa4meerkatgram.domain.user.mappers;
 
 
 import com.msa4meerkatgram.domain.user.entities.User;

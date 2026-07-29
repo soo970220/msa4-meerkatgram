@@ -1,9 +1,9 @@
 package com.msa4meerkatgram.global.security.filter;
 
 public final class SecurityUrlRegistry {
-    private SecurityUrlRegistry() {} // 인스턴트 생성 방지
+    private SecurityUrlRegistry() {} // 인스턴스 생성 방지
     // ----------------------------
-    // 블랙리스트 (인증인 반드시 필요)
+    // 블랙리스트 (인증이 반드시 필요)
     //-----------------------------
     public static final String[] AUTH_REQUIRED_GET_URLS = {
         "/api/posts/{id}"

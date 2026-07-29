@@ -42,7 +42,7 @@ public class JwtProvider {
             .type(jwtConfig.type())// 토큰 유형 설정
             .and() // 추가 연결
             .subject(String.valueOf(user.getId())) // subject: 유저를 특정하는 id세팅에 주로사용
-            .issuer(jwtConfig.issuer()) // 토근 발급자
+            .issuer(jwtConfig.issuer()) // 토큰 발급자
             .issuedAt(now) // 토큰 발급시간
             .expiration(new Date(now.getTime() + ttl)) // 만료시간
             .claim("role", user.getRole())  // private claim 설정
@@ -79,7 +79,7 @@ public class JwtProvider {
                     .getPayload();
 
     } catch (ExpiredJwtException e){
-            throw new InvalidTokenException("토큰이 만료됬습니다.");
+            throw new InvalidTokenException("토큰이 만료됐습니다.");
         } catch (UnsupportedJwtException e) {
             throw new InvalidTokenException("서명이 위조된 토큰입니다");
         } catch(MalformedJwtException e) {

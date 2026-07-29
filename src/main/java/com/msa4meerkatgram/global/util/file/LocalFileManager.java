@@ -1,4 +1,4 @@
-package com.msa4meerkatgram.global.utill.file;
+package com.msa4meerkatgram.global.util.file;
 
 import com.msa4meerkatgram.global.errors.custom.FileManagedException;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +32,7 @@ public class LocalFileManager {
     // 파일 확장자 검증
     String fileName = file.getOriginalFilename();
     if (fileName == null || !fileName.contains(".")) {
-      throw new FileManagedException("파일 저장 실패: 파일 확장자 획득 실패(파일명 이상");
+      throw new FileManagedException("파일 저장 실패: 파일 확장자 획득 실패(파일명 이상)");
     }
     String extractExtension = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
     // 허용하는 확장자 체크

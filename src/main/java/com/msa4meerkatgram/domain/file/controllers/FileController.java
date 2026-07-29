@@ -2,7 +2,7 @@ package com.msa4meerkatgram.domain.file.controllers;
 
 
 import com.msa4meerkatgram.domain.file.responses.FileRes;
-import com.msa4meerkatgram.domain.file.service.FileService;
+import com.msa4meerkatgram.domain.file.services.FileService;
 import com.msa4meerkatgram.global.responses.GlobalRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

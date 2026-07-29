@@ -1,4 +1,4 @@
-package com.msa4meerkatgram.domain.post.mapper;
+package com.msa4meerkatgram.domain.post.mappers;
 
 import com.msa4meerkatgram.domain.post.entities.Post;
 import org.apache.ibatis.annotations.Mapper;
@@ -11,4 +11,5 @@ public interface PostMapper {
     long getTotal();
     Post findByPk(long id);
     long countPostsByUserId(long userId);
+    int store(Post post);
 }

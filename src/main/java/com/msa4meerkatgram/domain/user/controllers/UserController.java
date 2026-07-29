@@ -1,4 +1,4 @@
-package com.msa4meerkatgram.domain.user.controller;
+package com.msa4meerkatgram.domain.user.controllers;
 
 import com.msa4meerkatgram.domain.auth.responses.AuthRes;
 import com.msa4meerkatgram.domain.user.services.UserService;

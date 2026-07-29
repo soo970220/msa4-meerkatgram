@@ -1,4 +1,4 @@
-package com.msa4meerkatgram.domain.auth.mapper;
+package com.msa4meerkatgram.domain.auth.mappers;
 
 import com.msa4meerkatgram.domain.user.entities.User;
 import org.apache.ibatis.annotations.Mapper;

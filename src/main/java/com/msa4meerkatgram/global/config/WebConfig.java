@@ -1,7 +1,7 @@
-package com.msa4meerkatgram.global.comfig;
+package com.msa4meerkatgram.global.config;
 
 
-import com.msa4meerkatgram.global.utill.file.FileConfig;
+import com.msa4meerkatgram.global.util.file.FileConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;

@@ -44,7 +44,7 @@ security:
     secret: w4e5gwe57nhwb456g3h46g34of6h9439f5h8o7os5789hflsg645eh74s57he54g734
     header-key: Authorization
     scheme: Bearer
-    reiss-uri: /api/reissue-token
+    reissue-uri: /api/reissue-token
 
 # config
 file:
